@@ -212,6 +212,8 @@ class ecJSGantt {
 			}
 			
 			// Finally add the task
+            $pName = str_replace("'", "\\'", $pName);
+            $pRes = str_replace("'", "\\'", $pRes);
 			$strScript .= "\noJSGant.AddTaskItem(new JSGantt.TaskItem("
 				."{$pID}, '{$pName}', "
 				."'{$pStart}', '{$pEnd}', "
@@ -225,7 +227,7 @@ class ecJSGantt {
 				."{$pOpen}, "
 				."'{$pDepend}', "
 				."'{$pCaption}'"
-			."))";
+			    ."))";
 		}
 		
 		// prepare script header
