@@ -80,3 +80,32 @@
 .ganttchart .gheadwkend {
 	background-color: #cfcfcf;
 }
+
+/* Chart percent complete cell colors */
+.percent_comp_qtr1 {
+    background-color: #FF98A9;
+}
+.percent_comp_qtr2 {
+    background-color: #FF98A9;
+}
+.percent_comp_qtr3 {
+    background-color: #ffbfc7;
+}
+.percent_comp_qtr4 {
+    background-color: #ffbfc7;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

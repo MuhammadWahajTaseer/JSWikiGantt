@@ -1,12 +1,12 @@
 ﻿/* 
-   _        ___            _   _     _   ____  
-  (_)___   / _ \__ _ _ __ | |_| |_  / | |___ \ 
-  | / __| / /_\/ _` | '_ \| __| __| | |   __) |
-  | \__ \/ /_\\ (_| | | | | |_| |_  | |_ / __/ 
- _/ |___/\____/\__,_|_| |_|\__|\__| |_(_)_____|
-|__/ 
+     _      ____             _   _     _   _____ 
+    | |___ / ___| __ _ _ __ | |_| |_  / | |___ / 
+ _  | / __| |  _ / _` | '_ \| __| __| | |   |_ \ 
+| |_| \__ \ |_| | (_| | | | | |_| |_  | |_ ___) |
+ \___/|___/\____|\__,_|_| |_|\__|\__| |_(_)____/  
 
-Copyright (c) 2009, Shlomy Gantz BlueBrick Inc. All rights reserved.
+Copyright (c) 2017, modified by Muhamamd Wahaj Taseer; original code by
+Shlomy Gantz BlueBrick Inc. All rights reserved.
  
 *
 * Redistribution and use in source and binary forms, with or without
@@ -187,7 +187,7 @@ JSGantt.TaskItem = function(pID, pName, pStart, pEnd, pColor, pLink, pMile, pRes
 	this.getCaption  = function(){ if(vCaption) return vCaption; else return ''; };
 	this.getResource = function(){ if(vRes) return vRes; else return '&nbsp';  };
 	this.getCompVal  = function(){ if(vComp) return vComp; else return 0; };
-	this.getCompStr  = function(){ if(vComp) return vComp+'%'; else return ''; };
+	this.getCompStr  = function(){ if(vComp || vComp === 0) return vComp+'%'; else return ''; };
 
 	this.getDuration = function(vFormat)
 	{ 
@@ -702,10 +702,36 @@ JSGantt.GanttChart =  function(pGanttVar, pDiv, pFormat)
 //				{
 				vLeftTable += ' <span title="'+ vTaskList[i].getName() +'">' + vTaskList[i].getShortName(pNameWidth) + '</span></nobr></td>' ;
 //				}
+                
+                let percentCompStr = vTaskList[i].getCompStr();
+                //percentCompStr = (percentCompStr) ? percentCompStr : '0%';
+                let percentColorClass = '';
+                
+                
+                let percentComp = percentCompStr.replace(/%/g, '').trim();
+                if (vShowComp == 1) {
+                    console.log(percentComp)
+                    if (parseInt(percentComp) < 25) {
+                        percentColorClass = 'percent_comp_qtr1';
+                    } 
+                    else if (parseInt(percentComp) < 50) {
+                        percentColorClass = 'percent_comp_qtr2';
+                    }                    
+                    else if (parseInt(percentComp) < 75) {
+                        percentColorClass = 'percent_comp_qtr3';
+                    }                    
+                    else if (parseInt(percentComp) < 100) {
+                        percentColorClass = 'percent_comp_qtr4';
+                    }
+                    else if (parseInt(percentComp) === 100) {
+                        percentColorClass = 'percent_comp_qtr5';
+                    }
+                }
+                    console.log(percentColorClass)
 
 				if(vShowRes ==1) vLeftTable += '  <td class="gtaskdesc"><nobr>' + vTaskList[i].getResource() + '</nobr></td>' ;
 				if(vShowDur ==1) vLeftTable += '  <td class="gtaskdesc"><nobr>' + vTaskList[i].getDuration(vFormat) + '</nobr></td>' ;
-				if(vShowComp==1) vLeftTable += '  <td class="gtaskdesc"><nobr>' + vTaskList[i].getCompStr()  + '</nobr></td>' ;
+				if(vShowComp==1) vLeftTable += '  <td class="gtaskdesc '+ percentColorClass +'"><nobr>' + percentCompStr  + '</nobr></td>' ;
 				if(vShowStartDate==1) vLeftTable += '  <td class="gtaskdesc"><nobr>' + JSGantt.formatDateStr( vTaskList[i].getStart(), vDateDisplayFormat) + '</nobr></td>' ;
 				if(vShowEndDate==1) vLeftTable += '  <td class="gtaskdesc"><nobr>' + JSGantt.formatDateStr( vTaskList[i].getEnd(), vDateDisplayFormat) + '</nobr></td>' ;
 
