@@ -704,13 +704,11 @@ JSGantt.GanttChart =  function(pGanttVar, pDiv, pFormat)
 //				}
                 
                 let percentCompStr = vTaskList[i].getCompStr();
-                //percentCompStr = (percentCompStr) ? percentCompStr : '0%';
+                percentCompStr = (percentCompStr) ? percentCompStr : '0%';
                 let percentColorClass = '';
-                
                 
                 let percentComp = percentCompStr.replace(/%/g, '').trim();
                 if (vShowComp == 1) {
-                    console.log(percentComp)
                     if (parseInt(percentComp) < 25) {
                         percentColorClass = 'percent_comp_qtr1';
                     } 
@@ -727,7 +725,6 @@ JSGantt.GanttChart =  function(pGanttVar, pDiv, pFormat)
                         percentColorClass = 'percent_comp_qtr5';
                     }
                 }
-                    console.log(percentColorClass)
 
 				if(vShowRes ==1) vLeftTable += '  <td class="gtaskdesc"><nobr>' + vTaskList[i].getResource() + '</nobr></td>' ;
 				if(vShowDur ==1) vLeftTable += '  <td class="gtaskdesc"><nobr>' + vTaskList[i].getDuration(vFormat) + '</nobr></td>' ;
@@ -736,7 +733,6 @@ JSGantt.GanttChart =  function(pGanttVar, pDiv, pFormat)
 				if(vShowEndDate==1) vLeftTable += '  <td class="gtaskdesc"><nobr>' + JSGantt.formatDateStr( vTaskList[i].getEnd(), vDateDisplayFormat) + '</nobr></td>' ;
 
 				vLeftTable += '</TR>';
-                
 			}
 
 			// DRAW the date format selector at bottom left.  Another potential GanttChart parameter to hide/show this selector
@@ -1049,8 +1045,8 @@ JSGantt.GanttChart =  function(pGanttVar, pDiv, pFormat)
 			for(i = 0; i < vTaskList.length; i++)
 			{
                 let name = vTaskList[i].getName();
-                var res = name.replace(/&quot;/g, '');
-                name = res.split(' ').join('+');
+                var res = name.replace(/&quot;|\'|\+|\"/g, '');
+                name = res.split(/\s+/).join('+');
                 
 				vTmpDate.setFullYear(vMinDate.getFullYear(), vMinDate.getMonth(), vMinDate.getDate());
 				vTaskStart = vTaskList[i].getStart();
@@ -1665,13 +1661,13 @@ JSGantt.taskLink = function(pName)
 	//if(pHeight) vHeight=pHeight; else vHeight=400;
 
 	//var OpenWindow=window.open(pRef, "newwin", "height="+vHeight+",width="+vWidth);
-    //window.attachEvent('onload', oJobSchEd.startEditor());
-    if (oJobSchEd) {
-        oJobSchEd.createOverlay();
+    //window.attachEvent('onload', oJSWikiGanttFrontEnd.startEditor());
+    if (oJSWikiGanttFrontEnd) {
+        oJSWikiGanttFrontEnd.createOverlay();
     }
 	var OpenWindow=window.open('/mediawiki/index.php?title='+wgTitle+'&action=edit#openTask='+pName+'', "_self");
     //OpenWindow.focus();
-    //$(OpenWindow.document).onload(oJobSchEd.startEditor())
+    //$(OpenWindow.document).onload(oJSWikiGanttFrontEnd.startEditor())
 }
 
 JSGantt.parseDateStr = function(pDateStr,pFormatStr)
