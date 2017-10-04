@@ -1093,12 +1093,12 @@ JSGantt.GanttChart =  function(pGanttVar, pDiv, pFormat)
 
 					vRightTable +=
 						'<div id=bardiv_' + vID + ' style="position:absolute; top:0px; left:' + Math.ceil((vTaskLeft * (vDayWidth) - 2)) + 'px; height: 18px; width:16px; overflow:hidden;">' +
-						'  <div id=taskbar_' + vID + ' title="' + vTaskList[i].getName() + ': ' + vDateRowStr + '" style="position:relative;left:2px; height: 20px; width:16px; overflow:hidden; cursor: pointer; font-size:16px;" onclick=JSGantt.taskLink("' + name + '");>';
+						'  <div id=taskbar_' + vID + ' title="' + vTaskList[i].getName() + ': ' + vDateRowStr + '" style="position:relative;left:2px; height: 20px; width:16px; overflow:hidden; cursor: pointer; font-size:14px;" onclick=JSGantt.taskLink("' + name + '");>';
 
 					if(vTaskList[i].getCompVal() < 100)
-						vRightTable += '&#x2606;</div>' ;
+						vRightTable += '&#9671;</div>' ;
 					else
-						vRightTable += '&#x2605;</div>' ;
+						vRightTable += '&#9670;</div>' ;
 
 					if( oJSGant.getCaptionType() )
 					{
