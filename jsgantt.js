@@ -1662,9 +1662,6 @@ JSGantt.taskLink = function(pName)
 
 	//var OpenWindow=window.open(pRef, "newwin", "height="+vHeight+",width="+vWidth);
     //window.attachEvent('onload', oJSWikiGanttFrontEnd.startEditor());
-    if (oJSWikiGanttFrontEnd) {
-        oJSWikiGanttFrontEnd.createOverlay();
-    }
 	var OpenWindow=window.open('/mediawiki/index.php?title='+wgTitle+'&action=edit#openTask='+pName+'', "_self");
     //OpenWindow.focus();
     //$(OpenWindow.document).onload(oJSWikiGanttFrontEnd.startEditor())
